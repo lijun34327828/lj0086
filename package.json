@@ -1,0 +1,19 @@
+{
+  "name": "cold-drink-dashboard",
+  "version": "1.0.0",
+  "description": "街边冷饮小店经营数据统计看板",
+  "main": "index.js",
+  "scripts": {
+    "start:backend": "node backend/server.js",
+    "start:frontend": "node frontend/server.js",
+    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}

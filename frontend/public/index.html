@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>冷饮小店经营数据统计看板</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>🧊 街边冷饮小店 · 经营数据看板</h1>
+      <div class="period-switcher">
+        <button id="btn-day" class="period-btn active">单日统计</button>
+        <button id="btn-week" class="period-btn">单周统计</button>
+      </div>
+    </header>
+
+    <div class="period-info">
+      <span id="period-label">统计周期：</span>
+      <span id="period-date" class="period-date">加载中...</span>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card card-cups">
+        <div class="stat-icon">🥤</div>
+        <div class="stat-content">
+          <div class="stat-label">销售总杯数</div>
+          <div class="stat-value" id="total-cups">0</div>
+          <div class="stat-unit">杯</div>
+        </div>
+      </div>
+
+      <div class="stat-card card-revenue">
+        <div class="stat-icon">💰</div>
+        <div class="stat-content">
+          <div class="stat-label">营业收入</div>
+          <div class="stat-value" id="total-revenue">0</div>
+          <div class="stat-unit">元</div>
+        </div>
+      </div>
+
+      <div class="stat-card card-orders">
+        <div class="stat-icon">📋</div>
+        <div class="stat-content">
+          <div class="stat-label">订单总数</div>
+          <div class="stat-value" id="order-count">0</div>
+          <div class="stat-unit">单</div>
+        </div>
+      </div>
+
+      <div class="stat-card card-avg">
+        <div class="stat-icon">📊</div>
+        <div class="stat-content">
+          <div class="stat-label">平均客单价</div>
+          <div class="stat-value" id="avg-order">0</div>
+          <div class="stat-unit">元/单</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ranking-section">
+      <h2>🏆 销量 TOP 饮品</h2>
+      <div class="ranking-list" id="ranking-list">
+        <div class="loading">加载中...</div>
+      </div>
+    </div>
+
+    <div class="formula-hint">
+      <h3>📝 统计公式说明</h3>
+      <div class="formula-grid">
+        <div class="formula-item">
+          <span class="formula-label">销售总杯数</span>
+          <span class="formula-expr">= 所有订单商品数量之和</span>
+        </div>
+        <div class="formula-item">
+          <span class="formula-label">营业收入</span>
+          <span class="formula-expr">= 所有订单金额之和</span>
+        </div>
+        <div class="formula-item">
+          <span class="formula-label">平均客单价</span>
+          <span class="formula-expr">= 营业收入 ÷ 订单总数</span>
+        </div>
+        <div class="formula-item">
+          <span class="formula-label">TOP 饮品</span>
+          <span class="formula-expr">= 按销售杯数从高到低排序</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
