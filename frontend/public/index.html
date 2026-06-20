@@ -87,6 +87,56 @@
         </div>
       </div>
     </div>
+
+    <div class="order-entry-section">
+      <h2>📝 录入今日订单</h2>
+      <div class="order-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="drink-select">选择饮品</label>
+            <select id="drink-select">
+              <option value="">-- 请选择饮品 --</option>
+            </select>
+            <span class="error-text" id="drink-error"></span>
+          </div>
+          <div class="form-group">
+            <label for="quantity-input">数量</label>
+            <input type="number" id="quantity-input" min="1" max="99" placeholder="1-99">
+            <span class="error-text" id="quantity-error"></span>
+          </div>
+          <div class="form-group form-group-btn">
+            <button id="btn-add-item" class="btn-add">添加</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-details" id="order-details" style="display:none;">
+        <h3>当前订单明细</h3>
+        <table class="detail-table">
+          <thead>
+            <tr>
+              <th>饮品</th>
+              <th>单价（元）</th>
+              <th>数量</th>
+              <th>小计（元）</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody id="detail-tbody"></tbody>
+        </table>
+        <div class="order-total">
+          本单合计：<span id="order-total-amount">0</span> 元
+        </div>
+        <div class="order-actions">
+          <span class="error-text" id="submit-error"></span>
+          <button id="btn-submit-order" class="btn-submit">提交订单</button>
+        </div>
+      </div>
+
+      <div class="order-success" id="order-success" style="display:none;">
+        ✅ 订单提交成功！订单号：<span id="success-order-id"></span>
+      </div>
+    </div>
   </div>
 
   <script src="app.js"></script>

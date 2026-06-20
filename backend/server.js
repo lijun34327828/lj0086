@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { orders, formatDate } = require('./data');
+const { drinks, orders, formatDate } = require('./data');
 
 const app = express();
 app.use(cors());
@@ -85,6 +85,65 @@ app.get('/api/orders', (req, res) => {
     result = getOrdersByDateRange(date, date);
   }
   res.json(result);
+});
+
+app.get('/api/drinks', (req, res) => {
+  res.json(drinks);
+});
+
+app.post('/api/orders', (req, res) => {
+  const { items } = req.body;
+
+  if (!items || !Array.isArray(items) || items.length === 0) {
+    return res.status(400).json({ error: '订单明细不能为空' });
+  }
+
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    if (!item.drinkId) {
+      return res.status(400).json({ error: `第${i + 1}项饮品编号不能为空` });
+    }
+    const drink = drinks.find(d => d.id === item.drinkId);
+    if (!drink) {
+      return res.status(400).json({ error: `饮品编号 ${item.drinkId} 不存在` });
+    }
+    if (!Number.isInteger(item.quantity) || item.quantity < 1) {
+      return res.status(400).json({ error: `第${i + 1}项数量必须为正整数` });
+    }
+  }
+
+  const orderItems = items.map(item => {
+    const drink = drinks.find(d => d.id === item.drinkId);
+    return {
+      drinkId: drink.id,
+      drinkName: drink.name,
+      price: drink.price,
+      quantity: item.quantity
+    };
+  });
+
+  const totalAmount = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  const hours = String(now.getHours()).padStart(2, '0');
+  const minutes = String(now.getMinutes()).padStart(2, '0');
+  const timeStr = `${year}-${month}-${day} ${hours}:${minutes}`;
+
+  const orderId = 'ORD' + String(orders.length + 1).padStart(5, '0');
+
+  const newOrder = {
+    id: orderId,
+    time: timeStr,
+    items: orderItems,
+    totalAmount: totalAmount
+  };
+
+  orders.push(newOrder);
+
+  res.status(201).json({ orderId: orderId, order: newOrder });
 });
 
 const PORT = 8866;
